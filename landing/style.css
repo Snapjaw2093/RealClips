@@ -1,0 +1,138 @@
+/* RealClips landing page styles.
+   Colors live in the variables below, so changing the look is a one-place edit. */
+
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --text: #14263a;
+  --muted: #55657a;
+  --accent: #c8932f;        /* warm gold */
+  --accent-text: #14263a;   /* text color on top of gold buttons */
+  --border: #e3ded3;
+  --navy: #0f2a43;
+}
+
+/* Dark mode: follows the visitor's device setting. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c1a29;
+    --surface: #132a40;
+    --text: #eef2f6;
+    --muted: #a6b4c4;
+    --border: #23405c;
+    --navy: #2f5f8f;   /* lighter, so the step numbers stand out on dark cards */
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* .wrap keeps content centered with comfortable side gutters (16px on phones). */
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+section.wrap { padding-top: 56px; padding-bottom: 8px; }
+
+h1, h2, h3 { line-height: 1.15; margin: 0 0 12px; }
+h1 { font-size: clamp(2.4rem, 7vw, 4rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); margin-bottom: 24px; }
+h3 { font-size: 1.1rem; }
+p { margin: 0 0 12px; }
+
+/* ---------- Nav ---------- */
+.nav { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; padding-bottom: 20px; }
+.brand { font-weight: 800; font-size: 1.25rem; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+.brand span { color: var(--accent); }
+
+/* ---------- Buttons & links ---------- */
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+  text-decoration: none;
+  padding: 14px 26px;
+  border-radius: 999px;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); filter: brightness(1.06); }
+.btn:focus-visible, .link:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+.btn-small { padding: 9px 18px; font-size: 0.9rem; }
+.link { color: var(--text); font-weight: 600; margin-left: 20px; }
+
+/* ---------- Hero ---------- */
+.hero { display: grid; gap: 40px; align-items: center; padding-top: 24px; }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 14px; }
+.lead { font-size: 1.15rem; color: var(--muted); max-width: 34em; margin-bottom: 28px; }
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 0; }
+
+/* The phone mock: 9:16 like the real output. */
+.phone {
+  justify-self: center;
+  width: min(260px, 70vw);
+  aspect-ratio: 9 / 16;
+  background: #0a0f16;
+  border-radius: 34px;
+  padding: 10px;
+  box-shadow: 0 0 0 1px var(--border), 0 24px 60px rgba(15, 42, 67, 0.35);
+}
+.screen { position: relative; width: 100%; height: 100%; border-radius: 26px; overflow: hidden; background: linear-gradient(#f2c78b 0%, #f7e3c4 45%, #9bc08a 45%, #6f9a5e 100%); }
+.house { position: absolute; left: 12%; right: 12%; top: 22%; height: 36%; }
+.house i { position: absolute; display: block; }
+.roof { left: -6%; right: -6%; top: 0; height: 34%; background: #7a3b2e; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.body { left: 0; right: 0; top: 30%; bottom: 0; background: #f4efe6; border: 2px solid #d6cdbb; }
+.door { left: 42%; width: 16%; bottom: 0; height: 48%; background: #2b4a6b; border-radius: 3px 3px 0 0; }
+.win { top: 42%; width: 16%; height: 22%; background: #9dc7e8; border: 2px solid #d6cdbb; }
+.w1 { left: 12%; }
+.w2 { right: 12%; }
+/* Captions: big, bold, outlined, lower-middle, like the real clips. */
+.caption {
+  position: absolute; left: 6%; right: 6%; top: 62%;
+  margin: 0; text-align: center;
+  color: #fff; font-weight: 900; font-size: clamp(1rem, 4.4vw, 1.35rem); line-height: 1.2;
+  -webkit-text-stroke: 4px #000; paint-order: stroke fill;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Steps ---------- */
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+.steps li, .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.num { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 700; margin-bottom: 12px; }
+.steps p, .card p { color: var(--muted); margin: 0; }
+
+/* ---------- Cards ---------- */
+.cards { display: grid; gap: 16px; }
+
+/* ---------- Roadmap ---------- */
+.roadmap { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.roadmap li { padding-left: 28px; position: relative; color: var(--muted); }
+.roadmap li::before { content: ""; position: absolute; left: 4px; top: 0.55em; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--accent); }
+
+/* ---------- Call to action ---------- */
+.cta { text-align: center; padding-top: 72px; padding-bottom: 72px; }
+.cta p { color: var(--muted); max-width: 32em; margin: 0 auto 24px; }
+
+/* ---------- Footer ---------- */
+.footer { display: flex; justify-content: space-between; gap: 12px; padding-top: 24px; padding-bottom: 32px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
+
+/* ---------- Wider screens ---------- */
+@media (min-width: 760px) {
+  .wrap { padding: 0 24px; }
+  .hero { grid-template-columns: 1.2fr 0.8fr; }
+  .steps, .cards { grid-template-columns: repeat(3, 1fr); }
+  section.wrap { padding-top: 80px; }
+}
+
+/* Respect visitors who turn off animations. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
