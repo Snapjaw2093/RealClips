@@ -1,0 +1,4 @@
+faster-whisper    # step 1: local speech-to-text with word timestamps
+av<16             # audio decoder used by faster-whisper (newer versions break it)
+anthropic        # step 2: Claude API client
+python-dotenv     # loads ANTHROPIC_API_KEY from the .env file

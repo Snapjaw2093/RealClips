@@ -1,0 +1,13 @@
+# Secrets - never commit your API key
+.env
+
+# Generated files
+output/
+*.mp4
+*.mov
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
