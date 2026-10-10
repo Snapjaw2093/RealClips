@@ -62,6 +62,13 @@ Your picks go through the same checks as Claude's (snapped to word boundaries,
 
 ### Video too big to upload?
 
+The website has a free in-browser compressor at `/compress/` (source in
+`landing/compress/`). It runs FFmpeg inside the visitor's browser with
+ffmpeg.wasm, so videos are never uploaded. The small wrapper files live in
+`landing/vendor/`; the ~30 MB FFmpeg engine loads from the jsDelivr CDN on first use.
+
+Or do it on the command line:
+
 For a test you don't need full quality. This shrinks a video to 720p and
 usually makes a few minutes of footage land well under 30 MB:
 

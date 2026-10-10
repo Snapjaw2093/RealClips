@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Video Compressor - RealClips</title>
+  <meta name="description" content="Shrink a big video right in your browser. Nothing is uploaded: your video never leaves your computer.">
+  <meta name="theme-color" content="#000000">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="compress.css">
+</head>
+<body>
+
+  <div class="bg" aria-hidden="true">
+    <div class="bg-gradient"></div>
+    <div class="stars stars-1"></div>
+    <div class="stars stars-2"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+  </div>
+  <div class="top-fade" aria-hidden="true"></div>
+
+  <header class="nav-wrap">
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="/"><i class="brand-mark"></i><span>RealClips</span></a>
+      <div class="nav-links">
+        <a href="/#how">How it works</a>
+        <a href="/#features">What you get</a>
+        <a href="/compress/" aria-current="page" class="is-current">Compressor</a>
+      </div>
+      <a class="nav-btn" href="/#cta">
+        <span>Get access</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="tool-hero">
+      <p class="eyebrow fade" style="--d:.05s">Free tool</p>
+      <h1 class="fade" style="--d:.15s"><span class="grad">Shrink a big video.</span><span class="grad">Keep it <em class="red">private<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none"/></svg></em>.</span></h1>
+      <p class="lead fade" style="--d:.25s">Compression happens right here in your browser. Your video is never uploaded, so it stays on your computer until you choose to share the small version.</p>
+    </section>
+
+    <!-- ============ THE TOOL ============ -->
+    <section class="tool fade" style="--d:.35s" aria-label="Video compressor">
+      <div class="panel">
+
+        <!-- Step 1: choose a file -->
+        <div id="step-pick">
+          <label class="drop" id="drop">
+            <input id="file" type="file" accept="video/*,.mp4,.mov,.m4v,.webm,.mkv">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            <strong>Drop a video here</strong>
+            <span>or click to choose a file</span>
+          </label>
+          <p class="unsupported" id="unsupported" hidden>
+            This browser can't run the compressor. Please try a recent version of Chrome, Edge, Firefox or Safari on a computer.
+          </p>
+        </div>
+
+        <!-- Step 2: options -->
+        <div id="step-options" hidden>
+          <div class="file-row">
+            <div class="file-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg></div>
+            <div class="file-meta">
+              <strong id="file-name">video.mp4</strong>
+              <span id="file-info">-</span>
+            </div>
+            <button class="link-btn" id="change" type="button">Change</button>
+          </div>
+
+          <div class="opts">
+            <label class="opt">
+              <span>Goal</span>
+              <select id="goal">
+                <option value="size30">Fit under 30 MB</option>
+                <option value="small">Smaller file, good quality (720p)</option>
+              </select>
+            </label>
+            <label class="opt">
+              <span>Length</span>
+              <select id="length">
+                <option value="0">Whole video</option>
+                <option value="300">First 5 minutes</option>
+                <option value="600">First 10 minutes</option>
+              </select>
+            </label>
+            <label class="opt opt-wide">
+              <span>Speed</span>
+              <select id="speed">
+                <option value="ultrafast">Faster (recommended)</option>
+                <option value="veryfast">Better quality, takes about twice as long</option>
+              </select>
+            </label>
+          </div>
+          <p class="hint" id="goal-hint"></p>
+
+          <button class="shiny go" id="go" type="button"><span>Compress video
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></button>
+        </div>
+
+        <!-- Step 3: working -->
+        <div id="step-work" hidden aria-live="polite">
+          <p class="work-title" id="work-title">Loading compressor...</p>
+          <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><i id="bar-fill"></i></div>
+          <div class="work-meta"><span id="work-detail">&nbsp;</span><span id="work-time">0:00</span></div>
+          <p class="hint">Keep this tab open and visible. Longer videos take longer.</p>
+          <button class="ghost-sm" id="cancel" type="button">Cancel</button>
+        </div>
+
+        <!-- Step 4: done -->
+        <div id="step-done" hidden>
+          <p class="done-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Done</p>
+          <div class="sizes">
+            <div><span>Before</span><strong id="size-before">-</strong></div>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <div class="after"><span>After</span><strong id="size-after">-</strong></div>
+          </div>
+          <p class="saved" id="saved"></p>
+          <video id="preview" controls playsinline preload="metadata"></video>
+          <div class="done-actions">
+            <a class="solid" id="download" href="#" download>Download small video
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></a>
+            <button class="link-btn" id="again" type="button">Compress another</button>
+          </div>
+        </div>
+
+        <!-- Errors -->
+        <div id="step-error" hidden role="alert">
+          <p class="error-title">Something went wrong</p>
+          <p class="error-text" id="error-text"></p>
+          <button class="ghost-sm" id="retry" type="button">Try again</button>
+        </div>
+
+      </div>
+
+      <ul class="notes">
+        <li><strong>Private.</strong> The file is processed on your device. Nothing is sent to a server.</li>
+        <li><strong>First use downloads the engine.</strong> About 30 MB, once, then your browser remembers it.</li>
+        <li><strong>Results are MP4</strong> (H.264 video, AAC audio), which works almost everywhere.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-base">
+      <p>&copy; 2026 RealClips. Early prototype. Video processing by <a href="https://ffmpegwasm.netlify.app/" rel="noopener" target="_blank">FFmpeg (ffmpeg.wasm)</a>.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="compress.js"></script>
+</body>
+</html>
