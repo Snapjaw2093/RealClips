@@ -7,7 +7,6 @@ This file is the "director": it holds the settings and runs each step in order.
 The real work lives in transcribe.py, select_clips.py and (soon) render.py.
 """
 
-import json
 import shutil
 import sys
 from pathlib import Path
@@ -73,8 +72,17 @@ def main():
     except ClipSelectionError as e:
         sys.exit(f"Error: {e}")
 
-    print(json.dumps(clips, indent=2))
-    # Step 3 (cutting + captions) is added next.
+    # Step 3: cut, crop to vertical, burn in captions, and write clips.json.
+    from render import render_clips
+
+    try:
+        results = render_clips(video, transcript, clips, OUTPUT_DIR)
+    except RuntimeError as e:
+        sys.exit(f"Error: {e}")
+
+    print(f"\nDone! {len(results)} clips saved in {OUTPUT_DIR}/")
+    for r in results:
+        print(f"  {r['file']}  ({r['duration']:.0f}s)  {r['title']}")
 
 
 if __name__ == "__main__":
