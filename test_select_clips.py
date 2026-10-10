@@ -87,6 +87,24 @@ class SelectClipsTests(unittest.TestCase):
                 sc.get_client()
         self.assertIn("ANTHROPIC_API_KEY", str(ctx.exception))
 
+    def test_load_picks_from_file(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as d:
+            ok = os.path.join(d, "ok.json")
+            with open(ok, "w") as f:
+                json.dump({"clips": [{"start": 0, "end": 40, "title": "A"}]}, f)  # no reason: allowed
+            clips = sc.load_picks(ok, TRANSCRIPT, 30, 60)
+            self.assertEqual(clips[0]["reason"], "")
+
+            bad = os.path.join(d, "bad.json")
+            with open(bad, "w") as f:
+                json.dump({"clips": [{"start": 0, "end": 10, "title": "Too short"}]}, f)
+            with self.assertRaises(sc.ClipSelectionError):
+                sc.load_picks(bad, TRANSCRIPT, 30, 60)
+            with self.assertRaises(sc.ClipSelectionError):
+                sc.load_picks(os.path.join(d, "missing.json"), TRANSCRIPT, 30, 60)
+
     def test_transcript_format_has_times(self):
         text = sc.format_transcript(WORDS[:12])
         self.assertTrue(text.startswith("[0.00] word0 word1"))

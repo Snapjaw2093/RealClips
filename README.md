@@ -46,6 +46,32 @@ The first run downloads the Whisper model (about 150 MB).
 python clipper.py my_video.mp4
 ```
 
+### No API key? Pick the clips yourself
+
+Everything except the AI clip-picking works without a key:
+
+```
+python clipper.py my_video.mp4 --transcript-only      # transcribe, then stop
+# read output/transcript.json, then write picks.json like this:
+#   {"clips": [{"start": 12.4, "end": 58.9, "title": "My title", "reason": "optional"}]}
+python clipper.py my_video.mp4 --picks picks.json     # cut, crop, caption
+```
+
+Your picks go through the same checks as Claude's (snapped to word boundaries,
+30-60 seconds, no overlaps).
+
+### Video too big to upload?
+
+For a test you don't need full quality. This shrinks a video to 720p and
+usually makes a few minutes of footage land well under 30 MB:
+
+```
+ffmpeg -i big.mp4 -vf scale=-2:720 -c:v libx264 -crf 28 -preset veryfast -c:a aac -b:a 64k small.mp4
+```
+
+Add `-t 300` to keep only the first 5 minutes. (Clips are cut from the file you
+give it, so a smaller file means smaller clips - fine for testing.)
+
 Results go in `output/`:
 
 - `clip_1.mp4`, `clip_2.mp4`, `clip_3.mp4` - the finished vertical clips

@@ -143,6 +143,32 @@ def validate_clips(raw, words, duration, num_clips, min_len, max_len):
     return cleaned
 
 
+def load_picks(path, transcript, min_len, max_len):
+    """Load hand-written clip picks from a JSON file instead of asking Claude.
+
+    Handy when you have no API key, or want to override the AI's choices.
+    The file looks like the AI's answer: {"clips": [{"start", "end", "title",
+    "reason"}, ...]} (a bare list works too, and "reason" is optional). The
+    picks go through the SAME checks as Claude's answer: snapped to word
+    boundaries, length-checked, and no overlaps.
+    """
+    try:
+        with open(path) as f:
+            raw = json.load(f)
+    except (OSError, ValueError) as e:
+        raise ClipSelectionError(f"Could not read picks file {path}: {e}")
+    clips = raw.get("clips") if isinstance(raw, dict) else raw
+    if not isinstance(clips, list) or not clips:
+        raise ClipSelectionError(f'{path} must contain a non-empty "clips" list')
+    clips = [{"reason": "", **c} if isinstance(c, dict) else c for c in clips]
+    try:
+        return validate_clips(
+            {"clips": clips}, transcript["words"], transcript["duration"], len(clips), min_len, max_len
+        )
+    except ValueError as e:
+        raise ClipSelectionError(f"Problem in {path}: {e}")
+
+
 def select_clips(transcript, num_clips, min_len, max_len, client=None):
     """Ask Claude for the best clips. Returns a list of clip dicts.
 
