@@ -1,0 +1,93 @@
+/* Styles that only the compressor page needs. Colors/fonts come from /style.css. */
+
+.tool-hero { text-align: center; padding: 140px 20px 8px; max-width: 56rem; margin: 0 auto; }
+.tool-hero h1 { font-size: clamp(2.4rem, 8vw, 4.4rem); margin-bottom: 20px; }
+.tool-hero .eyebrow { margin-bottom: 18px; }
+.tool-hero .lead { margin-bottom: 0; }
+.nav-links a.is-current { color: #fff; }
+
+.tool { max-width: 40rem; margin: 40px auto 0; padding: 0 16px 96px; position: relative; z-index: 10; }
+
+.panel {
+  padding: 28px; border-radius: 18px; border: 1px solid var(--line);
+  background: linear-gradient(to bottom, rgba(24,24,27,.6), rgba(0,0,0,.85));
+  box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(239,35,60,.08);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+[hidden] { display: none !important; }
+
+/* Drop zone */
+.drop {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;
+  padding: 44px 20px; border-radius: 14px; border: 1.5px dashed rgba(255,255,255,.22);
+  background: rgba(255,255,255,.02); cursor: pointer; transition: border-color .2s, background .2s;
+}
+.drop:hover, .drop.over, .drop:focus-within { border-color: var(--red); background: rgba(239,35,60,.07); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.drop svg { width: 34px; height: 34px; color: var(--red); margin-bottom: 8px; }
+.drop strong { font-family: var(--font-head); font-size: 1.15rem; }
+.drop span { color: var(--muted); font-size: .92rem; }
+.unsupported { color: #fca5a5; text-align: center; margin-top: 8px; }
+
+/* File row */
+.file-row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid var(--line); margin-bottom: 22px; }
+.file-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: rgba(239,35,60,.12); color: var(--red); flex: none; }
+.file-icon svg { width: 22px; height: 22px; }
+.file-meta { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.file-meta strong { font-size: .95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-meta span { color: var(--muted); font-size: .82rem; }
+.link-btn { background: none; border: 0; color: var(--muted); font: inherit; font-size: .88rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 6px; }
+.link-btn:hover { color: #fff; }
+
+/* Options */
+.opts { display: grid; gap: 14px; margin-bottom: 8px; }
+.opt { display: flex; flex-direction: column; gap: 6px; }
+.opt-wide { grid-column: 1 / -1; }
+.opt span { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+select {
+  appearance: none; -webkit-appearance: none; width: 100%; padding: 13px 40px 13px 16px; border-radius: 10px;
+  background: #0a0a0c url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23a1a1aa' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E") no-repeat right 16px center;
+  border: 1px solid var(--line); color: #fff; font: inherit; cursor: pointer;
+}
+select:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.hint { color: var(--muted); font-size: .85rem; min-height: 1.3em; margin: 6px 0 22px; }
+.go { width: 100%; text-align: center; font: inherit; font-weight: 600; color: #fff; cursor: pointer; }
+.go span { justify-content: center; }
+
+/* Progress */
+.work-title { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; margin-bottom: 16px; }
+.bar { height: 10px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--red-deep), var(--red)); box-shadow: 0 0 18px rgba(239,35,60,.6); transition: width .3s ease; }
+.work-meta { display: flex; justify-content: space-between; gap: 12px; margin: 10px 0 14px; color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
+.ghost-sm { padding: 10px 22px; border-radius: 999px; background: #18181b; border: 1px solid #27272a; color: #d4d4d8; font: inherit; font-size: .9rem; cursor: pointer; }
+.ghost-sm:hover { background: #27272a; color: #fff; }
+#step-work .hint { margin: 0 0 18px; }
+
+/* Result */
+.done-badge { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px 5px 10px; border-radius: 999px; background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35); color: #86efac; font-size: .82rem; font-weight: 600; margin-bottom: 18px; }
+.done-badge svg { width: 16px; height: 16px; }
+.sizes { display: flex; align-items: center; justify-content: center; gap: 22px; margin-bottom: 8px; }
+.sizes > div { display: flex; flex-direction: column; align-items: center; }
+.sizes span { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+.sizes strong { font-family: var(--font-head); font-size: 2rem; letter-spacing: -.02em; }
+.sizes .after strong { color: var(--red); }
+.sizes > svg { width: 26px; height: 26px; color: var(--dim); }
+.saved { text-align: center; color: var(--muted); margin-bottom: 20px; }
+#preview { width: 100%; max-height: 340px; border-radius: 12px; background: #000; border: 1px solid var(--line); margin-bottom: 22px; }
+.done-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; }
+
+/* Errors */
+.error-title { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; margin-bottom: 8px; color: #fca5a5; }
+.error-text { color: var(--muted); margin-bottom: 20px; }
+
+.notes { margin: 28px 4px 0; display: grid; gap: 12px; color: var(--muted); font-size: .9rem; }
+.notes strong { color: #fff; font-weight: 600; }
+
+.footer a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.footer .footer-base { border-top: 0; text-transform: none; letter-spacing: .02em; font-size: .78rem; text-align: center; }
+.footer { padding-top: 0; }
+
+@media (min-width: 640px) {
+  .panel { padding: 36px; }
+  .opts { grid-template-columns: 1fr 1fr; }
+}
